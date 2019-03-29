@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+		<title>Document</title>
+	</head>
+	<body>
+		<style>
+			.div {
+				color: blue;
+				position: relative;
+			}
+			.span1:before {
+				content: "";
+				border-width: 10px 10px 10px 10px;
+				border-style: solid;
+				border-color: transparent transparent transparent #099;
+				display: inline-block;
+				position: absolute;
+				top: 2px;
+				left: 223px;
+			}
+			.span2:after {
+				content: "";
+				border-width: 10px 10px 10px 10px;
+				border-style: solid;
+				border-color: transparent transparent transparent #fff;
+				display: inline-block;
+				position: absolute;
+				top: 2px;
+				left: 221px;
+			}
+			.box div {
+				/* display: table; */
+				background-color: #3e3;
+			}
+			.box1 {
+				border: #099 1px dashed;
+			}
+		</style>
+		<div class="div">
+			指向右边哦
+			<span class="span1"></span>
+			<span class="span2"></span>
+		</div>
+		<div class="box">
+			<div style="display:inline-block">bbjjjjjj</div>
+			<div>
+				<span style="width:200px;float:left">hahha </span>
+			</div>
+			<div></div>
+			<div>bb</div>
+		</div>
+		<div class="box1">
+			<img src="../imgs/0.jpg" alt="" />
+			<span>环绕效果哟</span>
+		</div>
+		<img src="../imgs/2.jpg" alt="aaa" />
+	</body>
+</html>
