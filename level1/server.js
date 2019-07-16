@@ -7,7 +7,10 @@ let types = {
 	html: "text/html",
 	ico: "image/x-icon",
 	jpeg: "image/jpeg",
-	jpg: "image/jpeg"
+	jpg: "image/jpeg",
+	js: "text/javascript",
+	css: "text/css",
+	less: "text/css"
 }
 var server = http.createServer(function(request, response) {
 	var pathname = url.parse(request.url).pathname
@@ -15,7 +18,6 @@ var server = http.createServer(function(request, response) {
 	var ext = path.extname(filepath)
 	ext = ext ? ext.slice(1) : "unknown"
 	console.log("111", request.url, ext)
-
 	// console.log("pathname", pathname, url.parse(request.url))
 	// 第一个参数为相对路径
 	if (ext == "ico") {

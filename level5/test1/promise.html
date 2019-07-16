@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+		<title>Promise</title>
+		<script src="./dist/js/require.js"></script>
+	</head>
+	<body>
+		<div class="light-box" style="height:40px;border:1px solid pink;">
+			light-box
+		</div>
+		<script>
+			function fn(num) {
+				return new Promise(resolve => {
+					setTimeout(function() {
+						resolve(num * num)
+					}, 2000)
+				})
+			}
+			function test() {
+				fn(2)
+					.then(res => {
+						console.log("res", res)
+						return fn(res)
+					})
+					.then(res1 => {
+						console.log("res1", res1)
+					})
+			}
+			test()
+			// async function test() {
+			// 	let res = await fn(2)
+			// 	let res1 = await fn(res)
+			// 	console.log("re", res, res1)
+			// }
+			let arr = [
+				{
+					label: 1,
+					value: 1,
+					children: [
+						{
+							label: "1 - 1",
+							children: [
+								{
+									label: "1 - 1 - 1"
+								},
+								{
+									label: "1 - 1 - 2"
+								}
+							]
+						}
+					]
+				},
+				{
+					label: 2,
+					value: 2,
+					children: [
+						{
+							label: "2 - 1",
+							children: [
+								{
+									label: "2 - 1 - 1"
+								},
+								{
+									label: "2 - 1 - 2"
+								}
+							]
+						},
+						{
+							label: " 2 - 2"
+						}
+					]
+				}
+			]
+			let o = { a: 1, b: 2, c: { name: "ahh" } }
+			let p = Object.assign({}, o)
+			p.c.age = "2222"
+			console.log("p", p, o)
+			let aa = funSonTree(arr)
+			function funSonTree(list) {
+				let finalArr = []
+				function loopFn(arr) {
+					arr.map(item => {
+						finalArr.push(item)
+						// 检查是否有子数组，有的话继续循环
+						if (item.children && item.children.length > 0) {
+							loopFn(item.children)
+						}
+					})
+				}
+				loopFn(list)
+				return finalArr
+			}
+		</script>
+	</body>
+</html>

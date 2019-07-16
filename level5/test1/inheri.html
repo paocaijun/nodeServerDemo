@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+		<title>原型和闭包</title>
+	</head>
+	<body>
+		<div>
+			js 原型
+		</div>
+		<script>
+			function Foo(name) {
+				this.name = name
+			}
+			let f1 = new Foo("huahua")
+			f1.a = 10
+			Foo.prototype.b = 20
+			for (let i in f1) {
+				// hasOwnProperty,检查属性是否是基本属性里面的
+				console.log("f", i, f1.hasOwnProperty(i))
+			}
+			// 继承，apply
+			function Doo(sex) {
+				Foo.apply(this, arguments)
+				this.sex = sex
+			}
+			let d1 = new Doo("bi", "middle")
+			// 1、构造函数的prototype指向原型对象
+			// 2、每个实例有一个内部指针指向它的原型对象，可以访问到原型对象上的方法与属性
+
+			// 原型链继承  构造函数继承 组合继承 原型式继承 寄生组合继承
+			// 1原型继承
+			// function Animal(type) {
+			// 	this.type = type
+			// 	this.names = ["a", "b"]
+			// }
+			// Animal.prototype.sayType = function() {
+			// 	console.log(this.names)
+			// }
+			// function Dog(color) {
+			// 	this.color = color
+			// }
+			// Dog.prototype = new Animal("dog")
+			// Dog.prototype.sayColor = function() {
+			// 	console.log(this.bark)
+			// }
+			// let bobi = new Dog("blue")
+			// bobi.names.push("c")
+			// let b2 = new Dog("pink")
+			// let b3 = new Animal("pink")
+			// console.log(bobi, b2.names, b3)
+			// 2借助构造函数继承
+			// function Animal(type) {
+			// 	this.type = type
+			// 	this.names = ["a", "b"]
+			// }
+			// Animal.prototype.sayType = function() {
+			// 	console.log("say lalalala", this.names)
+			// }
+			// function Dog(type) {
+			// 	Animal.call(this, type)
+			// }
+			// let bobi = new Dog("dog")
+			// bobi.names.push("d")
+			// bobi.sayType()
+			// console.log("1", bobi, bobi.type)
+			// let b2 = new Dog("dog2")
+			// console.log("2", b2.names)
+			// 组合继承
+			// function Animal(type) {
+			// 	this.names = ["a", "b"]
+			// }
+			// Animal.prototype.sayType = function() {
+			// 	console.log("say", this.names)
+			// }
+			// function Dog(type) {
+			// 	Animal.call(this, type)
+			// }
+			// Dog.prototype = new Animal()
+			// let bobi = new Dog("dog")
+			// bobi.names.push("d")
+			// bobi.sayType()
+			// console.log("1", bobi)
+			// let b2 = new Dog("dog2")
+			// console.log("2", b2.names)
+			// 寄生组合式继承
+			function Animal(type) {
+				this.names = ["a", "b"]
+			}
+			Animal.prototype.sayType = function() {
+				console.log("say", this.names)
+			}
+			function Dog(type) {
+				Animal.call(this, type)
+			}
+			// 重要的一步
+			var F = function() {}
+			F.prototype = Animal.prototype
+			Dog.prototype = new F()
+			// Dog.prototype = new Animal()
+			let bobi = new Dog("dog")
+			console.log("bobi", bobi)
+
+			// 原型式继承
+			let Person = {
+				name: "people",
+				color: ["yellow", "brown", "white"]
+			}
+			function F() {}
+			F.prototype = Person
+			let Child = new F()
+			Child.name = "children"
+			console.log("ch", Child, Person)
+		</script>
+	</body>
+</html>

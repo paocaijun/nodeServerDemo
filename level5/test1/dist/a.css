@@ -1,0 +1,35 @@
+* {
+	padding: 0;
+	margin: 0;
+}
+ul,
+li {
+	list-style: none;
+}
+.box1 {
+	border: #010101 1px dashed;
+}
+.box1 span {
+	color: pink;
+}
+.img-box {
+	overflow: hidden;
+	margin-left: 60px;
+	width: 500px;
+	height: 300px;
+	position: relative;
+	box-shadow: 0 0 8px #ccc;
+}
+.img-ul {
+	width: 2700px;
+	height: 300px;
+	position: absolute;
+	top: 0;
+	left: 0;
+}
+.img-box .item-pic {
+	width: 500px;
+	height: 300px;
+	overflow: hidden;
+	float: left;
+}

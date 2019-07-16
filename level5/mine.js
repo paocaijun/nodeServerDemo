@@ -1,5 +1,6 @@
 let types = {
 	css: "text/css",
+	less: "text/css",
 	gif: "image/gif",
 	html: "text/html",
 	ico: "image/x-icon",

@@ -9,6 +9,8 @@ var path = require("path")
 var server = http.createServer(function(request, response) {
 	// 浏览器访问 localhost:3006/index.html时，request.url为/index.html，即端口之后的部分
 	var pathname = url.parse(request.url).pathname
+	// 当访问的是根目录时，重定向到根目录下的index.html文件
+	pathname = pathname == "/" ? "/index.html" : pathname
 	var realPath = path.join(DIR, pathname)
 	//文件后缀
 	var ext = path.extname(realPath)
@@ -18,9 +20,7 @@ var server = http.createServer(function(request, response) {
 			response.writeHead(404, {
 				"Content-Type": "text/plain"
 			})
-			response.write(
-				"this request URL" + pathname + "was not found on this server"
-			)
+			response.write("this request URL" + pathname + "was not found on this server")
 			// TODO: 看下呢
 			response.end()
 		} else {
@@ -46,4 +46,4 @@ var server = http.createServer(function(request, response) {
 	})
 })
 server.listen(port)
-console.log("server running" + port)
+console.log("server running " + port)

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+		<title>Document</title>
+		<link rel="stylesheet" type="text/css" href="dist/a.css" />
+		<script src="dist/js/less.min.js" type="text/javascript"></script>
+	</head>
+	<body>
+		<div>hello you guys</div>
+		<!-- <div class="box1">
+			<img src="dist/imgs/0.jpg" alt="" />
+			<span>环绕效果哟</span>
+		</div> -->
+		<div class="img-box"></div>
+		<script>
+			window.onload = function() {
+				console.log("load")
+				let arr = [
+					"dist/imgs/0.jpg",
+					"dist/imgs/2.jpg",
+					"dist/imgs/miao.jpg",
+					"dist/imgs/1.jpg",
+					"dist/imgs/0.jpg"
+				]
+				let ulStr = "<ul class='img-ul' >"
+				arr.map((item, i) => {
+					ulStr +=
+						'<li class="item-pic"><img src=' +
+						item +
+						'  alt="img"/></li>'
+				})
+				ulStr += "</ul>"
+				let imgBox = document.querySelector(".img-box")
+				imgBox.innerHTML = ulStr
+				let imgUl = document.querySelector(".img-ul")
+				let allLi = document.querySelectorAll(".item-pic")
+
+				let timer = null
+				animation()
+				function animation() {
+					nextPic()
+				}
+				function nextPic() {
+					clearInterval(timer)
+					timer = setInterval(function() {
+						// console.log("imgUl", imgUl, -500 * (allLi.length + 1))
+						let offsetLeft = imgUl.offsetLeft
+						if (offsetLeft <= -(allLi.length - 1) * 500) {
+							imgUl.style.left = "-500px"
+						} else {
+							imgUl.style.left = offsetLeft - 500 + "px"
+						}
+					}, 1000)
+				}
+				imgBox.onmouseenter = function() {
+					clearInterval(timer)
+				}
+				imgBox.onmouseleave = function() {
+					animation()
+				}
+			}
+		</script>
+	</body>
+</html>

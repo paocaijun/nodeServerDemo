@@ -5,9 +5,12 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
 		<title>Document</title>
+		<!-- <script src="less.js" type="text/javascript"></script> -->
+		<script src="./less.min.js"></script>
+		<link rel="stylesheet" type="text/css" href="style.less" />
 	</head>
 	<body>
-		<style>
+		<style lang="less">
 			.div {
 				color: blue;
 				position: relative;
@@ -33,11 +36,7 @@
 				left: 221px;
 			}
 			.box div {
-				/* display: table; */
 				background-color: #3e3;
-			}
-			.box1 {
-				border: #099 1px dashed;
 			}
 		</style>
 		<div class="div">
@@ -45,18 +44,10 @@
 			<span class="span1"></span>
 			<span class="span2"></span>
 		</div>
-		<div class="box">
-			<div style="display:inline-block">bbjjjjjj</div>
-			<div>
-				<span style="width:200px;float:left">hahha </span>
-			</div>
-			<div></div>
-			<div>bb</div>
 		</div>
 		<div class="box1">
-			<img src="../imgs/0.jpg" alt="" />
+			<img src="imgs/0.jpg" alt="" />
 			<span>环绕效果哟</span>
 		</div>
-		<img src="../imgs/2.jpg" alt="aaa" />
 	</body>
 </html>
