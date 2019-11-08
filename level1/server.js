@@ -10,7 +10,8 @@ let types = {
 	jpg: "image/jpeg",
 	js: "text/javascript",
 	css: "text/css",
-	less: "text/css"
+	less: "text/css",
+	json: "application/json"
 }
 var server = http.createServer(function(request, response) {
 	var pathname = url.parse(request.url).pathname

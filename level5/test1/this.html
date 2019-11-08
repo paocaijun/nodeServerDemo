@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+		<title>this</title>
+	</head>
+	<body>
+		<script>
+			const numbers = {
+				numberA: 5,
+				numberB: 10,
+				sum: function() {
+					console.log(this, "this")
+					function calcu() {
+						console.log(this)
+						return this.numberA + this.numberB
+					}
+					return calcu()
+				}
+			}
+			function Animal(name) {
+				this.name = name
+				this.say = function() {
+					console.log("this", this, this === cat, 1)
+				}
+			}
+			let cat = new Animal("guai")
+			setTimeout(cat.say(), 100)
+		</script>
+	</body>
+</html>

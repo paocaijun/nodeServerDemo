@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+		<title>Document</title>
+	</head>
+	<body>
+		<script
+			src="http://code.jquery.com/jquery-3.4.1.min.js"
+			integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+			crossorigin="anonymous"
+		></script>
+
+		<script>
+			let token = ""
+			async function test() {
+				//这是网上的一张图片链接
+				var url = "./dist/imgs/4.jpg"
+				let urlBase64 = ""
+				await getBase64(url).then(
+					function(base64) {
+						// console.log(base64) //处理成功打印在控制台
+						if (base64.indexOf("data:image/png;base64,") > -1) {
+							base64 = base64.replace("data:image/png;base64,", "")
+						}
+						urlBase64 = base64
+					},
+					function(err) {
+						console.log(err) //打印异常信息
+					}
+				)
+				return urlBase64
+			}
+			test().then(res => {
+				// console.log("1", res)
+				getToken(res)
+			})
+			function getBase64(img) {
+				function getBase64Image(img, width, height) {
+					//width、height调用时传入具体像素值，控制大小 ,不传则默认图像大小
+					var canvas = document.createElement("canvas")
+					canvas.width = width ? width : img.width
+					canvas.height = height ? height : img.height
+
+					var ctx = canvas.getContext("2d")
+					ctx.drawImage(img, 0, 0, canvas.width, canvas.height)
+					var dataURL = canvas.toDataURL()
+					return dataURL
+				}
+				var image = new Image()
+				image.crossOrigin = ""
+				image.src = img
+				var deferred = $.Deferred()
+				if (img) {
+					image.onload = function() {
+						deferred.resolve(getBase64Image(image)) //将base64传给done上传处理
+					}
+					return deferred.promise() //问题要让onload完成后再return sessionStorage['imgTest']
+				}
+				// let encoder = new BASE64Encoder()
+				// let data = encoder.encode(file.getBytes())
+				// debugger
+				// console.log("data", data)
+			}
+			function getToken(imgUrl) {
+				let data = {
+					grant_type: "client_credentials",
+					client_id: "OUQ6wKXemknaxcpTZfzmCHyK",
+					client_secret: "stOKh97OUjTUM2fgwEvQmbQ9YTNWqpkI"
+				}
+				postMethod("https://aip.baidubce.com/oauth/2.0/token", data).then(res => {
+					const { access_token } = res
+					token = access_token
+					compareFace(token, imgUrl)
+				})
+			}
+			function addFace(token, imgUrl) {
+				postMethod(
+					"https://aip.baidubce.com/rest/2.0/face/v3/faceset/user/add?access_token=" + token,
+					{ user_id: 14, group_id: "g1", image: imgUrl, user_info: "test123", image_type: "BASE64" },
+					"application/x-www-form-urlencoded"
+				)
+			}
+			function compareFace(token, imgUrl) {
+				postMethod("https://aip.baidubce.com/rest/2.0/face/v3/search?access_token=" + token, {
+					image: imgUrl,
+					group_id_list: "g1",
+					image_type: "BASE64"
+				})
+			}
+			function postMethod(url, data = {}, contentType, method = "POST") {
+				let promise = new Promise((resolve, reject) => {
+					$.ajax({
+						contentType: contentType || "application/json",
+						url: url,
+						dataType: "json",
+						data: data,
+						type: method,
+						crossDomain: true,
+						success: function(res) {
+							console.log("res", res)
+							resolve(res)
+						}
+					})
+				})
+				return promise
+			}
+			function corsMe(url, method = "POST") {
+				var xhr = new XMLHttpRequest()
+				if (xhr) {
+					xhr.open(method, url, true)
+				}
+			}
+			// let aa = corsMe("https://aip.baidubce.com/rest/2.0/face/v3/faceset/user/add?access_token=" + token)
+		</script>
+	</body>
+</html>

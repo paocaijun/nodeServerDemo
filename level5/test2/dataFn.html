@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+		<title>vue data 是函数</title>
+	</head>
+	<body>
+		<div class="box">box2222222222222</div>
+		<script type="module" src="./index.js"></script>
+		<script>
+			// 1、如果data是对象
+			function Mycomponent() {
+				this.bb = "test"
+			}
+			Mycomponent.prototype.data = { test: "test" }
+			const com1 = new Mycomponent()
+			const com2 = new Mycomponent()
+			com1.bb = "com1" // data 是对象，引用类型，所以两个组件的data都指向同一地址
+			// console.log("obj", com1, com2)
+
+			// 2、data是函数
+			// 定义的组件构造函数
+			// function Mycomponent() {
+			// 	this.data = this.data()
+			// }
+			// Mycomponent.prototype.data = function() {
+			// 	return { test: "test" }
+			// }
+			// com1 = new Mycomponent() // 组件实例，可以看做组件被引用
+			// com2 = new Mycomponent()
+			// com1.data.test = "com1"
+			// console.log("1", com1.data, com2.data)
+		</script>
+	</body>
+</html>

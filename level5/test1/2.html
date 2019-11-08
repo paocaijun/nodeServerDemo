@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+		<title>Canvas</title>
+	</head>
+	<body>
+		<h3>3006:2222</h3>
+
+		<script>
+			// parent.print(JSON.parse(window.name))
+
+			function pro(para) {
+				return new Promise((resolve, reject) => {
+					if (para > 10) {
+						resolve(para)
+					} else {
+						reject("no")
+					}
+				})
+			}
+			function t1() {
+				return pro(11).then(res => {
+					console.log("res1", res)
+					return res + "t1"
+				})
+			}
+			function t2() {
+				return t1().then(res => {
+					console.log("res", res)
+				})
+			}
+			t2().then(ha => {
+				console.log("ha")
+			})
+		</script>
+	</body>
+</html>

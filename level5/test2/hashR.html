@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+		<title>Document</title>
+		<script type="text/javascript" src="//api.map.baidu.com/api?v=2.0&ak=vXIvfT9oZj9shtHR9rzGDYex0mAuNZMK"></script>
+	</head>
+	<body>
+		<!-- hash router 的实现 -->
+		<div id="wrap" style="padding: 50px;border: 1px solid pink;">
+			<a href="#/black">黑色</a><br />
+			<a href="#/green">绿色</a><br />
+			<a href="#/red">红色</a>
+			<div id="allmap" style="width: 800px;height: 600px;"></div>
+		</div>
+		<script type="text/javascript">
+			var map = new BMap.Map("allmap") // 创建Map实例
+			map.centerAndZoom("上海", 15)
+			var point = new BMap.Point(116.404, 39.915) // 创建点坐标
+			map.centerAndZoom(point, 15)
+			map.enableScrollWheelZoom()
+
+			function Router() {
+				this.currentHash = "/"
+				this.routes = {}
+			}
+			//  注册路径，，为每一个路径一个回调函数
+			Router.prototype.route = function(path, callback) {
+				this.routes[path] =
+					callback ||
+					function() {
+						alert("尚无回调函数")
+					}
+			}
+			Router.prototype.refresh = function() {
+				this.currentHash = location.hash.slice(1) || "/"
+				this.routes[this.currentHash]()
+			}
+			Router.prototype.init = function() {
+				let self = this
+				window.addEventListener(
+					"load",
+					() => {
+						self.refresh()
+					},
+					false
+				)
+				// 切换hash时触发
+				window.addEventListener("hashchange", () => {
+					self.refresh()
+				})
+			}
+			var wrap = document.querySelector("#wrap")
+			let router = new Router()
+			router.route("/", () => {
+				wrap.style.background = "#eee"
+			})
+			router.route("/black", () => {
+				wrap.style.background = "#300"
+			})
+			router.route("/red", () => {
+				wrap.style.background = "#f66"
+			})
+			router.route("/green", () => {
+				wrap.style.background = "#6ff"
+			})
+			router.init()
+		</script>
+	</body>
+</html>
