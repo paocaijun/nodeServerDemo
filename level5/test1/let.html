@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>let</title>
+    <style>
+      .stock,
+      .demo,
+      .demo2,
+      .demo3 {
+        border: 1px solid red;
+      }
+    </style>
+  </head>
+  <body>
+    <h3>块级作用域</h3>
+    <script>
+      //   var arr = []
+      //   for (var i = 0; i < 5; i++) {
+      //     arr.push(() => i)
+      //   }
+      //   let newA = arr.map(i => i())
+      //   console.log("newA", newA)
+      fn2()
+      function fn2() {
+        var a = "123"
+        var a = "345"
+        console.log(a)
+      }
+      //   for (let i = 0; i < 5; i++) {
+      //     var i = "123"
+      //   }
+      //   for (var i = 0; i < 5; i++) {
+      //     let i = "123"
+      //   }
+    </script>
+  </body>
+</html>
