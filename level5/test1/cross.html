@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+		<title>Canvas</title>
+	</head>
+	<body>
+		<h3>跨域</h3>
+		<script
+			src="http://code.jquery.com/jquery-3.4.1.min.js"
+			integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+			crossorigin="anonymous"
+		></script>
+		<iframe src="http://localhost:3007/1.html"></iframe>
+		<script>
+			function print(data) {
+				console.log("data", data)
+			}
+			window.addEventListener("message", e => {
+				console.log("message", e.data)
+			})
+
+			let request = (url, type) => {
+				$.ajax({
+					type: type || "get",
+					url: url,
+					dataType: "jsonp",
+					jsonp: "callback", //传递给请求处理程序或页面的，用以获得jsonp回调函数名的参数名(一般默认为:callback)
+					jsonpCallback: "flightHandler", //自定义的jsonp回调函数名称，默认为jQuery自动生成的随机函数名，也可以写"?"，jQuery会自动为你处理数据
+					success: function(json) {
+						alert(json)
+					},
+					error: function() {
+						alert("fail")
+					}
+				})
+			}
+			let url = "http://localhost:3007/api.json"
+			// request(url)
+			// function iframeCross() {
+			// 	let iframe = document.createElement("iframe")
+			// 	iframe.onload = () => {
+			// 		// iframe.src = "favicon.ico"
+			// 		let data = iframe.contentWindow.name
+			// 		console.log("data", data)
+			// 	}
+			// 	let url = "http://localhost:3007/1.html"
+			// 	iframe.src = url
+			// 	iframe.name = "iframe1"
+			// 	document.body.appendChild(iframe)
+			// }
+			// iframeCross()
+		</script>
+	</body>
+</html>

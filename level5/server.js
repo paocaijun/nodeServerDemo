@@ -1,5 +1,5 @@
 var port = "3006"
-var DIR = "test1" //对应运行的文件夹名称
+var DIR = "test2" //对应运行的文件夹名称
 var http = require("http")
 var url = require("url")
 var fs = require("fs")

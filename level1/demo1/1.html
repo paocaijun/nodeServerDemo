@@ -7,6 +7,20 @@
 		<title>Document</title>
 	</head>
 	<body>
-		hhhhh
+		<div>3007:1111</div>
+		<script
+			src="http://code.jquery.com/jquery-3.4.1.min.js"
+			integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+			crossorigin="anonymous"
+		></script>
+		<script>
+			$.ajax({
+				url: "./api.json"
+			}).done(data => {
+				// window.name = JSON.stringify(data)
+				// location.href = "http://localhost:3006/2.html"
+				parent.postMessage(data, "*")
+			})
+		</script>
 	</body>
 </html>
