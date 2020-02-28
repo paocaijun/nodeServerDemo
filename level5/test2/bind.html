@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    /** 自定义apply  **/
+    function fn() {
+      Function.prototype._apply = function (tthis = window, args) {
+        // this 为实例函数，tthis为想要指向的this对象
+        console.log(this.constructor)
+        if (typeof this != "function") {
+          throw new TypeError("error")
+        }
+        // 在对象上挂载函数方法
+        tthis.fn = this
+        // 调用对象上的方法，此时修改this指向成功
+        let result = args ? tthis.fn(...args) : tthis.fn()
+        delete tthis.fn
+        return result
+      }
+      function show(aa) {
+        console.log(this, aa)
+      }
+      let obj = { a: 1 }
+      show._apply(obj, "params")
+    }
+    fn()
+
+    /** promise.finally **/
+  </script>
+  bind
+</body>
+
+</html>

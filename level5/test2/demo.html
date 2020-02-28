@@ -1,35 +1,38 @@
 <!DOCTYPE html>
 <html lang="en">
-	<head>
-		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
-		<title>Document</title>
-	</head>
-	<body>
-		<div>我是test2的demo.html</div>
-		<h1 id="name">{{ title }}</h1>
 
-		<script src="./observe.js"></script>
-		<script src="./watcher.js"></script>
-		<script type="text/javascript">
-			function SelfVue(data, el, exp) {
-				this.data = data
-				observe(data)
-				el.innerHTML = this.data[exp] // 初始化模板数据的值
-				new Watcher(this, exp, function(value) {
-					// 订阅者watcher 更新时执行
-					el.innerHTML = value
-				})
-				return this
-			}
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+	<title>Document</title>
+</head>
 
-			var ele = document.querySelector("#name")
-			var selfVue = new SelfVue({ title: "hello word" }, ele, "title")
-			window.setTimeout(function() {
-				console.log("name值改变了")
-				selfVue.data.title = "canfoo"
-			}, 2000)
-		</script>
-	</body>
+<body>
+	<div>数据双向绑定</div>
+	<h1 id="name">{{ title }}</h1>
+
+	<script src="./observe.js"></script>
+	<script src="./watcher.js"></script>
+	<script type="text/javascript">
+		function SelfVue(data, el, exp) {
+			this.data = data
+			observe(data)
+			el.innerHTML = this.data[exp] // 初始化模板数据的值
+			new Watcher(this, exp, function (value) {
+				// 订阅者watcher 更新时执行
+				el.innerHTML = value
+			})
+			return this
+		}
+
+		var ele = document.querySelector("#name")
+		var selfVue = new SelfVue({ title: "hello word" }, ele, "title")
+		window.setTimeout(function () {
+			console.log("name值改变了")
+			selfVue.data.title = "canfoo"
+		}, 2000)
+	</script>
+</body>
+
 </html>

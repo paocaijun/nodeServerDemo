@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <div>jquery
+        <div class="bb"> bb </div>
+    </div>
+    <div id='proxy'>
+        <ul>
+            <li>1</li>
+            <li>2</li>
+            <li>3</li>
+            <li>4</li>
+            <li>5</li>
+        </ul>
+    </div>
+    <script>
+        // 4工厂模式：将构造函数和真正的使用者隔离开
+        class jQuery {
+            constructor(sele) {
+                let elements = Array.prototype.slice.call(document.querySelectorAll(sele))
+                this.len = elements ? elements.length : 0
+                for (let i = 0; i < this.len; i++) {
+                    this[i] = elements[i]
+                }
+            }
+            append() { }
+        }
+        // 工厂
+        window.$ = function (el) {
+            return new jQuery(el)
+        }
+        // 使用
+        $('div')
+
+        class A {
+            constructor(name) {
+                this.name = name
+            }
+        }
+        class B {
+            creator(name) {
+                return new A(name)
+            }
+        }
+        let b = new B()
+        b.creator('GUAI')
+
+        // 5、单例模式
+        // 靠文档约束不能去new
+        class loginForm {
+            constructor() {
+                this.state = 'hide'
+            }
+            show() {
+                if (this.state === 'show') {
+                    alert('已显示')
+                } else {
+                    this.state = 'show'
+                    console.log('显示成功');
+                }
+            }
+            hide() {
+                if (this.state === 'hide') {
+                    alert('已隐藏')
+                } else {
+                    this.state = 'hide'
+                    console.log('隐藏成功');
+                }
+            }
+        }
+        // 定义类上的静态方法
+        loginForm.getInstance = (function () {
+            let instance
+            return function () {
+                console.log(instance, 'instance')
+                if (!instance) {
+                    instance = new loginForm()
+                }
+                return instance
+            }
+        })()
+        let obj1 = loginForm.getInstance()
+        let obj2 = loginForm.getInstance()
+        // obj1.show()
+        // obj2.hide()
+
+        // 代理模式
+        class RealImg {
+            constructor(file) {
+                this.file = file
+            }
+            display() {
+                console.log('展示图片');
+            }
+        }
+        class ProxyImg {
+            constructor(file) {
+                this.realImg = new RealImg(file)
+            }
+            display() { // 方法名必须保持一致
+                this.realImg.display()
+            }
+        }
+        let test = new ProxyImg('1.jpg')
+        // test.display()
+
+
+        let proxy = document.getElementById('proxy')
+        proxy.addEventListener('click', (e) => {
+            if (e.target.nodeName === 'LI') {
+                console.log(e.target.innerText);
+            }
+        })
+
+
+    </script>
+</body>
+
+</html>
